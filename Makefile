@@ -5,19 +5,19 @@ airflow-down:
 	@docker-compose down
 
 infra-get:
-	cd infrastructure && terraform get;
+	cd environ/dev && terraform get;
 
 infra-init: infra-get
-	cd infrastructure && terraform init -upgrade;
+	cd environ/dev && terraform init -upgrade;
 
 infra-plan: infra-init
-	cd infrastructure && terraform plan;
+	cd environ/dev && terraform plan;
 
 infra-apply: infra-plan
-	cd infrastructure && terraform apply;
+	cd environ/dev && terraform apply;
 
 infra-destroy:
-	cd infrastructure && terraform destroy;
+	cd environ/dev && terraform destroy;
 
 clean:
 	rm -rf postgres_data

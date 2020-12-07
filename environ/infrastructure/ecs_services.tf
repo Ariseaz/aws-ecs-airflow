@@ -10,7 +10,7 @@ resource "aws_ecs_service" "web_server_service" {
 
     network_configuration {
         security_groups = [aws_security_group.web_server_ecs_internal.id]
-        subnets = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id, aws_subnet.public-subnet-3.id]
+        subnets = module.airflow-vpc.public_subnets
         assign_public_ip = true
     }
 
@@ -36,7 +36,7 @@ resource "aws_ecs_service" "scheduler_service" {
     
     network_configuration {
         security_groups = [aws_security_group.scheduler.id]
-        subnets = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id, aws_subnet.public-subnet-3.id]
+        subnets = module.airflow-vpc.public_subnets
         assign_public_ip = true # when using a NAT can be put to false, or when ECS Private Link is enabled
     }
 
@@ -55,7 +55,7 @@ resource "aws_ecs_service" "workers_service" {
 
     network_configuration {
         security_groups = [aws_security_group.workers.id]
-        subnets = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id, aws_subnet.public-subnet-3.id]
+        subnets = module.airflow-vpc.public_subnets
         assign_public_ip = true # when using a NAT can be put to false, or when ECS Private Link is enabled
     }
 
@@ -74,7 +74,7 @@ resource "aws_ecs_service" "flower_service" {
 
     network_configuration {
         security_groups = [aws_security_group.flower.id]
-        subnets = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id, aws_subnet.public-subnet-3.id]
+        subnets = module.airflow-vpc.public_subnets
         assign_public_ip = true
     }
 

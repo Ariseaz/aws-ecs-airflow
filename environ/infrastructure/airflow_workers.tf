@@ -1,13 +1,13 @@
-resource "aws_security_group" "flower" {
-    name = "${var.project_name}-${var.stage}-flower-sg"
-    description = "Allow all inbound traffic for Flower"
-    vpc_id = aws_vpc.vpc.id
+resource "aws_security_group" "workers" {
+    name = "${var.project_name}-${var.stage}-workers-sg"
+    description = "Airflow Celery Workers security group"
+    vpc_id = module.airflow-vpc.vpc_id
 
     ingress {
-        from_port = 5555
-        to_port = 5555
+        from_port = 8793
+        to_port = 8793
         protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = ["${var.base_cidr_block}/16"]
     }
 
     egress {
@@ -18,32 +18,32 @@ resource "aws_security_group" "flower" {
     }
 
     tags = {
-        Name = "${var.project_name}-${var.stage}-flower-sg"
+        Name = "${var.project_name}-${var.stage}-workers-sg"
     }
 }
 
 
-resource "aws_ecs_task_definition" "flower" {
-  family = "${var.project_name}-${var.stage}-flower"
+resource "aws_ecs_task_definition" "workers" {
+  family = "${var.project_name}-${var.stage}-workers"
   network_mode = "awsvpc"
   execution_role_arn = aws_iam_role.ecs_task_iam_role.arn
   requires_compatibilities = ["FARGATE"]
-  cpu = "512" # the valid CPU amount for 2 GB is from from 256 to 1024
-  memory = "1024"
+  cpu = "512"
+  memory = "2048" # the valid CPU amount for 2 GB is from from 256 to 1024
   container_definitions = <<EOF
 [
   {
-    "name": "airflow_flower",
+    "name": "airflow_workers",
     "image": ${replace(jsonencode("${aws_ecr_repository.docker_repository.repository_url}:${var.image_version}"), "/\"([0-9]+\\.?[0-9]*)\"/", "$1")} ,
     "essential": true,
     "portMappings": [
       {
-        "containerPort": 5555,
-        "hostPort": 5555
+        "containerPort": 8793,
+        "hostPort": 8793
       }
     ],
     "command": [
-        "flower"
+        "worker"
     ],
     "environment": [
       {
@@ -96,7 +96,7 @@ resource "aws_ecs_task_definition" "flower" {
         "options": {
             "awslogs-group": "${var.log_group_name}/${var.project_name}-${var.stage}",
             "awslogs-region": "${var.aws_region}",
-            "awslogs-stream-prefix": "flower"
+            "awslogs-stream-prefix": "workers"
         }
     }
   }

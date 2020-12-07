@@ -1,0 +1,24 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::285272039810:user/azuser1"
+            },
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::az1-terraform"
+        },
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::285272039810:user/azuser1"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::az1-terraform/environ/dev/key"
+        }
+    ]
+}

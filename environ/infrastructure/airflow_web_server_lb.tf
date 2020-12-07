@@ -1,6 +1,6 @@
 resource "aws_alb" "airflow_alb" {
   name            = "${var.project_name}-${var.stage}-alb"
-  subnets         = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id, aws_subnet.public-subnet-3.id]
+  subnets         = module.airflow-vpc.public_subnets
   security_groups = [aws_security_group.application_load_balancer.id]
 }
 
@@ -8,7 +8,7 @@ resource "aws_alb_target_group" "airflow_web_server" {
     name        = "${var.project_name}-${var.stage}-web-server"
     port        = 8080
     protocol    = "HTTP"
-    vpc_id      = aws_vpc.vpc.id
+    vpc_id      = module.airflow-vpc.vpc_id
     target_type = "ip"
 
     health_check {

@@ -23,8 +23,12 @@ Setup to run Airflow in AWS ECS containers
   <pre>
   pip install cryptography
   export AIRFLOW_FERNET_KEY=$(python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())")
+
+  or
+
+  export AIRFLOW_FERNET_KEY=$(python3 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())")
   </pre>
-  More about that [here](https://cryptography.io/en/latest/fernet/)
+  
 
 * Start Airflow locally simply running:
   <pre>
@@ -47,7 +51,7 @@ make infra-apply
 
 or alternatively
 <pre>
-cd infrastructure
+cd dev/infrastructure
 terraform get
 terraform init -upgrade;
 terraform plan
@@ -79,3 +83,7 @@ The deployment script will take care of:
 * Move ECS containers to Private Subnets
 * Use ECS private Links for Private Subnets
 * Improve ECS Task and Service Role
+
+
+## AWS ECS and Fargate
+Amazon Elastic Container Service (Amazon ECS) is a fully managed _container orchestration service_ […] You can choose to run your ECS clusters using AWS Fargate, which is _serverless compute for containers_. Fargate removes the need to provision and manage servers, lets you specify and pay for resources per application, and improves security through application isolation by design

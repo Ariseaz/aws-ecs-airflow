@@ -1,7 +1,7 @@
 resource "aws_security_group" "redis_vpc" {
     name = "${var.project_name}-${var.stage}-redis-vpc-sg"
     description = "Allow all inbound traffic"
-    vpc_id = aws_vpc.vpc.id
+    vpc_id = module.airflow-vpc.vpc_id
 
     ingress {
         from_port   = 6379
@@ -24,7 +24,7 @@ resource "aws_security_group" "redis_vpc" {
 
 resource "aws_elasticache_subnet_group" "airflow_redis_subnet_group" {
     name       = "${var.project_name}-${var.stage}"
-    subnet_ids = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id, aws_subnet.public-subnet-3.id]
+    subnet_ids = module.airflow-vpc.public_subnets
 }
 
 

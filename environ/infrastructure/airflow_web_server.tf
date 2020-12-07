@@ -1,7 +1,7 @@
 resource "aws_security_group" "application_load_balancer" {
     name = "${var.project_name}-${var.stage}-alb-web-sg"
     description = "Allow all inbound traffic"
-    vpc_id = aws_vpc.vpc.id
+    vpc_id = module.airflow-vpc.vpc_id
 
     ingress {
         from_port   = 80
@@ -26,7 +26,7 @@ resource "aws_security_group" "application_load_balancer" {
 resource "aws_security_group" "web_server_ecs_internal" {
     name = "${var.project_name}-${var.stage}-web-server-ecs-internal-sg"
     description = "Allow all inbound traffic"
-    vpc_id = aws_vpc.vpc.id
+    vpc_id = module.airflow-vpc.vpc_id
 
     ingress {
         from_port   = 8080

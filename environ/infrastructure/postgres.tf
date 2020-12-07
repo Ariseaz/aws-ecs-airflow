@@ -8,7 +8,7 @@ resource "random_string" "metadata_db_password" {
 resource "aws_security_group" "postgres_public" {
     name = "${var.project_name}-${var.stage}-postgres-public-sg"
     description = "Allow all inbound for Postgres"
-    vpc_id = aws_vpc.vpc.id
+    vpc_id = module.airflow-vpc.vpc_id
 
     ingress {
         from_port   = 5432
@@ -38,7 +38,7 @@ resource "aws_security_group" "postgres_public" {
 
 resource "aws_db_subnet_group" "airflow_subnet_group" {
     name = "${var.project_name}-${var.stage}"
-    subnet_ids = [aws_subnet.public-subnet-1.id, aws_subnet.public-subnet-2.id, aws_subnet.public-subnet-3.id]
+    subnet_ids = module.airflow-vpc.public_subnets
 
     tags = {
         Name = "${var.project_name}-${var.stage}-subnet-group"

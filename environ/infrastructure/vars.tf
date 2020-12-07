@@ -12,7 +12,6 @@ variable "project_name" {
 }
 
 variable "stage" {
-   default = "dev"
 }
 
 variable "base_cidr_block" {

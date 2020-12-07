@@ -111,7 +111,7 @@ services:
 
 #  worker2:
 #    image: airflow:latest
-#    restart: always
+#    restart: on-failure
 #    depends_on:
 #      - webserver
 #      - scheduler

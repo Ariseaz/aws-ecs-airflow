@@ -1,7 +1,7 @@
 resource "aws_security_group" "scheduler" {
     name = "${var.project_name}-${var.stage}-scheduler-sg"
     description = "Airflow scheduler security group"
-    vpc_id = aws_vpc.vpc.id
+    vpc_id = module.airflow-vpc.vpc_id
 
     egress {
         from_port       = 0

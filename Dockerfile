@@ -3,7 +3,7 @@
 
 FROM python:3.8.5-slim
 LABEL version="1.1"
-LABEL maintainer="nicor88"
+LABEL maintainer="azeez"
 
 # Never prompts the user for choices on installation/configuration of packages
 ENV DEBIAN_FRONTEND noninteractive
@@ -31,7 +31,7 @@ ENV LC_ALL en_US.UTF-8
 
 RUN set -ex \
     && buildDeps=' \
-        python3-dev \
+        python3 \
         libkrb5-dev \
         libsasl2-dev \
         libssl-dev \
