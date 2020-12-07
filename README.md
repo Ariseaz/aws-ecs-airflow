@@ -51,7 +51,7 @@ make infra-apply
 
 or alternatively
 <pre>
-cd dev/infrastructure
+cd environ/dev
 terraform get
 terraform init -upgrade;
 terraform plan
