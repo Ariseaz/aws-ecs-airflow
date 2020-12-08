@@ -17,12 +17,6 @@ parameters:
       the environment variable you will use to hold this
       value, i.e. AWS_ACCESS_KEY.
     type: env_var_name
-  aws-region:
-    default: AWS_DEFAULT_REGION
-    description: |
-      Env var of AWS region to operate in
-      (defaults to AWS_DEFAULT_REGION)
-    type: env_var_name
   aws-secret-access-key:
     default: AWS_SECRET_ACCESS_KEY
     description: |
