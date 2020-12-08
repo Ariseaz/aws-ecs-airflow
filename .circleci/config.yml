@@ -61,6 +61,9 @@ jobs:
           command: |
             cd /tmp/project/environ/dev/
             terraform apply -auto-approve tfdestroy
+          root: /tmp/project
+          paths:
+            - .
   
   build_deploy_app:
     machine:
