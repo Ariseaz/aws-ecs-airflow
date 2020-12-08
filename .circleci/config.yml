@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 jobs:
   aws-cli:
@@ -10,7 +10,7 @@ jobs:
       - run: echo "Run your code here"
 orbs:
   aws-cli: circleci/aws-cli@x.y
-version: 2.1
+
 workflows:
   aws-cli:
     jobs:
