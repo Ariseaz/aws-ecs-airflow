@@ -19,7 +19,7 @@ jobs:
           path: ~/src/environ/dev
       - terraform/destroy:
           path: ~/src/environ/dev
-    working_directory: ~/src
+
 workflows:
   single-job-lifecycle:
     jobs:
