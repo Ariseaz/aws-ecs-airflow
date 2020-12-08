@@ -1,6 +1,7 @@
 version: 2
 
 jobs:
+  # Terraform init and plan
   plan-apply:
     working_directory: /tmp/project
     docker:
@@ -16,7 +17,8 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .       
+            - .   
+  # Terraform apply plan; to deploy infrastructure
   apply:
     docker:
       - image: hashicorp/terraform:light
@@ -31,7 +33,7 @@ jobs:
           root: .
           paths:
             - .
-
+  # Terraform destroy plan
   plan-destroy:
     docker:
       - image: hashicorp/terraform:light
@@ -45,7 +47,7 @@ jobs:
           root: .
           paths:
             - .
-
+  # Terraform apply destroy plan; to teardown infrastructure
   destroy:
     docker:
       - image: hashicorp/terraform:light
@@ -59,7 +61,8 @@ jobs:
 
 workflows:
   version: 2
-  plan_approve_apply:
+  # Deploy infrastructure to AWS Environment
+  Infrastructure_plan_approve_apply:
     jobs:
       - plan-apply
       - hold-apply:
