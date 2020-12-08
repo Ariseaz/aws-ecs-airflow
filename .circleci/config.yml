@@ -12,12 +12,12 @@ jobs:
           command: |
             cd /tmp/project/environ/dev/
             terraform init -input=false
-            terraform plan -out tfapply -var-file vars.tf
+            terraform plan -out tfapply
       - persist_to_workspace:
           root: .
           paths:
             - .
-
+            
   apply:
     docker:
       - image: hashicorp/terraform:light
