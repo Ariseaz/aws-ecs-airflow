@@ -78,12 +78,6 @@ The deployment script will take care of:
 * push a new ECR image to your repository
 * re-deploy the new ECS services with the updated image
 
-## TODO
-* Create Private Subnets
-* Move ECS containers to Private Subnets
-* Use ECS private Links for Private Subnets
-* Improve ECS Task and Service Role
-
 
 ## AWS ECS and Fargate
 Amazon Elastic Container Service (Amazon ECS) is a fully managed _container orchestration service_ […] You can choose to run your ECS clusters using AWS Fargate, which is _serverless compute for containers_. Fargate removes the need to provision and manage servers, lets you specify and pay for resources per application, and improves security through application isolation by design

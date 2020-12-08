@@ -58,6 +58,21 @@ jobs:
           name: terraform destroy
           command: |
             terraform apply -auto-approve tfdestroy
+  
+  build_deploy:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - checkout
+      - run:
+          name: build and deploy to ecr
+          command: |
+            sudo apt-get update
+            sudo apt install python3-pip
+            sudo pip3 install awsebcli --upgrade
+      - run: chmod +x ./scripts/deploy.sh
+      - run: ./scripts/deploy.sh airflow-dev
+
 
 workflows:
   version: 2
@@ -82,3 +97,6 @@ workflows:
       - destroy:
           requires:
             - hold-destroy
+  Build and Deploy Apache Airflow image to ECR:
+    jobs:
+      - build_deploy
