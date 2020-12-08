@@ -1,17 +1,16 @@
 jobs:
-  aws-cli-example:
-    executor: aws-cli/default
+  plan-apply:
+    working_directory: /environ/dev
+    docker:
+      - image: hashicorp/terraform:light
     steps:
       - checkout
-      - aws-cli/setup:
-          profile-name: example
-      - run: echo "Run your code here"
-orbs:
-  aws-cli: circleci/aws-cli@x.y
-version: 2.1
-workflows:
-  aws-cli:
-    jobs:
-      - aws-cli-example:
-          context: aws
-
+      - run:
+          name: terraform init & plan
+          command: |
+            terraform init -input=false
+            terraform plan -out tfapply -var-file variables.tfvars
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
