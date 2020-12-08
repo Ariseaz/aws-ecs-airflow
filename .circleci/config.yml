@@ -78,3 +78,4 @@ workflows:
             - plan-destroy
       - destroy:
           requires:
+            - hold-destroy
