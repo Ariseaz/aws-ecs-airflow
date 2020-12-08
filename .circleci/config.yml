@@ -72,7 +72,7 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt install python3-pip
-            sudo pip3 install awsebcli --upgrade
+            sudo pip3 install awscli --upgrade
       - run: chmod +x ./scripts/deploy.sh
       - run: ./scripts/deploy.sh airflow-dev
 
