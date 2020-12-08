@@ -77,16 +77,20 @@ jobs:
 workflows:
   version: 2
   # Deploy infrastructure to AWS Environment
-  Infrastructure_plan_approve_apply:
+  App_Infrastructure_plan_approve_apply:
     jobs:
       - plan-apply
       - hold-apply:
+          # description: hold apply for the plan #
           type: approval
           requires:
             - plan-apply
       - apply:
           requires:
             - hold-apply
+      - build_deploy:
+          requires:
+            - apply
       - plan-destroy:
           requires:
             - apply
@@ -97,6 +101,4 @@ workflows:
       - destroy:
           requires:
             - hold-destroy
-  Build and Deploy Apache Airflow image to ECR:
-    jobs:
-      - build_deploy
+ 
