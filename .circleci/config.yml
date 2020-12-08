@@ -28,7 +28,6 @@ jobs:
       - run:
           name: terraform
           command: |
-            cd /tmp/project/environ/dev/
             terraform apply -auto-approve tfapply
       - persist_to_workspace:
           root: .
