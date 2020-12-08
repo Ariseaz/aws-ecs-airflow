@@ -3,21 +3,22 @@ orbs:
   terraform: 'circleci/terraform@dev:alpha'
 jobs:
   single-job-lifecycle:
+    working_directory: ~/src
     executor: terraform/default
     steps:
       - checkout
       - terraform/init:
-          path: .
+          path: ~/src/environ/dev
       - terraform/validate:
-          path: .
+          path: ~/src/environ/dev
       - terraform/fmt:
-          path: .
+          path: ~/src/environ/dev
       - terraform/plan:
-          path: .
+          path: ~/src/environ/dev
       - terraform/apply:
-          path: .
+          path: ~/src/environ/dev
       - terraform/destroy:
-          path: .
+          path: ~/src/environ/dev
     working_directory: ~/src
 workflows:
   single-job-lifecycle:
