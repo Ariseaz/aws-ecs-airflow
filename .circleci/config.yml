@@ -59,7 +59,7 @@ jobs:
           command: |
             terraform apply -auto-approve tfdestroy
   
-  build_deploy:
+  build_deploy_app:
     machine:
       image: ubuntu-2004:202010-01
     steps:
@@ -88,7 +88,7 @@ workflows:
       - apply:
           requires:
             - hold-apply
-      - build_deploy:
+      - build_deploy_app:
           requires:
             - apply
       - plan-destroy:
