@@ -12,12 +12,11 @@ jobs:
           command: |
             cd /tmp/project/environ/dev/
             terraform init -input=false
-            terraform plan -out tfapply -var-file variables.tfvars
+            terraform plan -out tfapply
       - persist_to_workspace:
           root: .
           paths:
-            - .
-            
+            - .       
   apply:
     docker:
       - image: hashicorp/terraform:light
@@ -42,8 +41,7 @@ jobs:
       - run:
           name: terraform create destroy plan
           command: |
-            terraform plan -destroy -out tfdestroy -var-file variables.tfvars
-      - persist_to_workspace:
+            terraform plan -destroy -out tfdestroy
           root: .
           paths:
             - .
