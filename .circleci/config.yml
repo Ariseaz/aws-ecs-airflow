@@ -2,7 +2,7 @@ version: 2
 
 jobs:
   plan-apply:
-    working_directory: /environ/dev
+    working_directory: environ/dev/
     docker:
       - image: hashicorp/terraform:light
     steps:
