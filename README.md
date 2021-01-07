@@ -18,7 +18,7 @@ Setup to run Airflow in AWS ECS containers
   </pre>
 
 
-## Local Development
+## For Local Development
 * Generate a Fernet Key:
   <pre>
   pip install cryptography
